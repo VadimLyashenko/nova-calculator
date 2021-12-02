@@ -45,5 +45,9 @@ class AreasSeeder extends Seeder
         Area::create([
             'area' => 8
         ]);
+
+        Area::create([
+            'area' => 9
+        ]);
     }
 }

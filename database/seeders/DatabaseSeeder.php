@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ServiceTypesSeeder::class,
             LimitsSeeder::class,
-            AreasSeeder::class
+            AreasSeeder::class,
+            CountriesSeeder::class
         ]);
     }
 }
