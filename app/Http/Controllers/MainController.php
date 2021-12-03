@@ -22,7 +22,7 @@ class MainController extends Controller
 
     public function main()
     {
-        $countries = Country::all();
+        $countries = Country::all()->sortBy('name');
         $service_types = ServiceType::all();
         return view('main', [
             'countries'     => $countries,
@@ -32,7 +32,6 @@ class MainController extends Controller
 
     public function calc(Request $request)
     {
-        // dump($request->all());
         $max_weight = Weight::max('weight');
         $validated = $request->validate([
             'weight' => "required|numeric|min:0.5|max:$max_weight",
@@ -41,7 +40,7 @@ class MainController extends Controller
             'height' => "required|numeric|min:1|max:69",
         ]);
 
-        $countries = Country::all();
+        $countries = Country::all()->sortBy('name');
         $service_types = ServiceType::all();
         $cur_country = Country::find($request->country);
         $cur_service_type = ServiceType::find($request->service_type);
@@ -52,6 +51,14 @@ class MainController extends Controller
 
         $area_id = $cur_country->area_id;
         $weight = $cur_weight;
+
+        $calc_weight = $cur_length * $cur_width * $cur_height / 5000;
+        $calc_weight = round($calc_weight, 2, PHP_ROUND_HALF_DOWN);
+
+        if ($calc_weight > $weight) {
+            $weight = $calc_weight;
+        }
+
         $whole = floor($weight);
         $dec = $weight - $whole;
         if (($dec >= 0.1) && ($dec <= 0.5)) {

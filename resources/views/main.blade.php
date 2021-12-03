@@ -1,7 +1,7 @@
 <x-main-layout>
     <form action="{{ url('/')}}" method="POST" id="calc_form">
         @csrf
-        <div class="flex">
+        <div class="flex justify-between">
             <div class="sel_wrap m-4">
                 <label for="country" class="block text-left">Country:</label>
                 <select name="country" id="country" class="
@@ -44,19 +44,23 @@
         <div class="flex justify-between">
             <div class="m-4">
                 <label for="weight" class="block text-left">Weight(kg):</label>
-                <input value="{{isset($cur_weight) ? $cur_weight : old('weight')}}" min="0.5" max="70" name="weight" type="number" step="0.1" class="block w-24 form-input px-4 py-3 rounded-md border-transparent bg-gray-200 focus:border-gray-500">
+                <input id="weight" value="{{isset($cur_weight) ? $cur_weight : old('weight')}}" min="0.5" max="70" name="weight" type="number" step="0.1" class="block w-24 form-input px-4 py-3 rounded-md border-transparent bg-gray-200 focus:border-gray-500">
             </div>
             <div class="m-4">
                 <label for="length" class="block text-left">Length(cm):</label>
-                <input value="{{isset($cur_length) ? $cur_length : old('length')}}" min="0" max="120" name="length" type="number" class="block w-24 form-input px-4 py-3 rounded-md border-transparent bg-gray-200 focus:border-gray-500">
+                <input id="length" value="{{isset($cur_length) ? $cur_length : old('length')}}" min="0" max="120" name="length" type="number" class="block w-24 form-input px-4 py-3 rounded-md border-transparent bg-gray-200 focus:border-gray-500">
             </div>
             <div class="m-4">
                 <label for="width" class="block text-left">Width(cm):</label>
-                <input value="{{isset($cur_width) ? $cur_width : old('width')}}" min="0" max="80" name="width" type="number" class="block w-24 form-input px-4 py-3 rounded-md border-transparent bg-gray-200 focus:border-gray-500">
+                <input id="width" value="{{isset($cur_width) ? $cur_width : old('width')}}" min="0" max="80" name="width" type="number" class="block w-24 form-input px-4 py-3 rounded-md border-transparent bg-gray-200 focus:border-gray-500">
             </div>
             <div class="m-4">
                 <label for="height" class="block text-left">Height(cm):</label>
-                <input value="{{isset($cur_height) ? $cur_height : old('height')}}" min="0" max="69" name="height" type="number" class="block w-24 form-input px-4 py-3 rounded-md border-transparent bg-gray-200 focus:border-gray-500">
+                <input id="height" value="{{isset($cur_height) ? $cur_height : old('height')}}" min="0" max="69" name="height" type="number" class="block w-24 form-input px-4 py-3 rounded-md border-transparent bg-gray-200 focus:border-gray-500">
+            </div>
+            <div class="m-4">
+                <label for="calc_weight" class="block text-left">Calc Weight(kg):</label>
+                <input id="calc_weight" disabled type="number" class="block w-24 form-input px-4 py-3 rounded-md border-transparent bg-gray-400">
             </div>
         </div>
         <div class="flex justify-between">
