@@ -55,7 +55,7 @@ class MainController extends Controller
         $weight = $cur_weight;
 
         $calc_weight = $cur_length * $cur_width * $cur_height / 5000;
-        $calc_weight = round($calc_weight, 2, PHP_ROUND_HALF_DOWN);
+        $calc_weight = round($calc_weight, 1, PHP_ROUND_HALF_DOWN);
 
         if ($calc_weight > $weight) {
             $weight = $calc_weight;
@@ -86,9 +86,10 @@ class MainController extends Controller
             ])->first();
         }
 
-        $start_price = $price->price;
         $debug = null;
+        $start_price = null;
         if(isset($price)) {
+            $start_price = $price->price;
             $price = $price->price;
             if ($weight >=32 && $weight < 40) {
                 $price = $price + 180;

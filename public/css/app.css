@@ -32137,6 +32137,12 @@ select {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+@media (max-width: 640px) {
+  .calc_wrap {
+    flex-direction: column !important;
+  }
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
