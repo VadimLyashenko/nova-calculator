@@ -85,4 +85,33 @@
             </div>
         @endif
     </form>
+    <div class="debugging">
+        @if(isset($cur_length) && isset($cur_width) && isset($cur_height))
+            <div>{{ $cur_length }} x {{ $cur_width }} x {{ $cur_height }} =  {{ $cur_lwh }}</div>
+            <div>{{ $cur_lwh }} / 5000 = {{ $cur_lwh / 5000 }}</div>
+            <div>
+                {{$cur_weight}}
+                @if($cur_weight > ($cur_lwh / 5000) )
+                >
+                @else
+                <
+                @endif
+                {{ $cur_lwh / 5000 }}
+            </div>
+            <div>{{ $weight }}</div>
+            <div>counrty: {{ $cur_country->name }} zone: {{$area->id}}</div>
+            <div>price: {{$start_price}}</div>
+            @if(isset($debug))
+                @if($debug == 1)
+                <div>(weight >=32 AND $weight < 40) +180</div>
+                @endif
+                @if($debug == 2)
+                <div>(length > 100 OR width > 76 ) AND $weight < 40) +180</div>
+                @endif
+                @if($debug == 3)
+                <div>(weight >= 40 AND weight <= 70) +1560</div>
+                @endif
+            @endif
+        @endif
+    </div>
 </x-main-layout>

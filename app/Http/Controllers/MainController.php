@@ -10,6 +10,7 @@ use App\Models\Country;
 use App\Models\ServiceType;
 use App\Models\Weight;
 use App\Models\Price;
+use App\Models\Area;
 
 class MainController extends Controller
 {
@@ -23,7 +24,7 @@ class MainController extends Controller
     public function main()
     {
         $countries = Country::all()->sortBy('name');
-        $service_types = ServiceType::all();
+        $service_types = ServiceType::all()->sortByDesc('name');
         return view('main', [
             'countries'     => $countries,
             'service_types' => $service_types
@@ -41,7 +42,7 @@ class MainController extends Controller
         ]);
 
         $countries = Country::all()->sortBy('name');
-        $service_types = ServiceType::all();
+        $service_types = ServiceType::all()->sortByDesc('name');
         $cur_country = Country::find($request->country);
         $cur_service_type = ServiceType::find($request->service_type);
         $cur_weight = $request->weight;
@@ -50,6 +51,7 @@ class MainController extends Controller
         $cur_height = $request->height;
 
         $area_id = $cur_country->area_id;
+        $area = Area::find($area_id);
         $weight = $cur_weight;
 
         $calc_weight = $cur_length * $cur_width * $cur_height / 5000;
@@ -84,18 +86,23 @@ class MainController extends Controller
             ])->first();
         }
 
+        $start_price = $price->price;
+        $debug = null;
         if(isset($price)) {
             $price = $price->price;
             if ($weight >=32 && $weight < 40) {
                 $price = $price + 180;
+                $debug = 1;
             }
 
             elseif (($cur_length > 100 || $cur_width > 76 ) && $weight < 40) {
                 $price = $price + 180;
+                $debug = 2;
             }
 
             if ($weight >= 40 && $weight <= 70) {
                 $price = $price + 1560;
+                $debug = 3;
             }
         }
 
@@ -108,6 +115,11 @@ class MainController extends Controller
             'cur_length' => $cur_length,
             'cur_width' => $cur_width,
             'cur_height' => $cur_height,
+            'cur_lwh' => $cur_length * $cur_width * $cur_height,
+            'weight' => $weight,
+            'area'  => $area,
+            'start_price' => $start_price,
+            'debug' => $debug,
             'price' => $price,
         ]);
     }
