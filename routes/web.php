@@ -17,10 +17,14 @@ use App\Http\Controllers\MainController;
 //     return view('main');
 // });
 
-Route::get('/', [MainController::class, 'import']);
+Route::get('/', [MainController::class, 'main']);
+
+Route::post('/', [MainController::class, 'calc']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::post('import', [MainController::class, 'import'])->name('import');
 
 require __DIR__.'/auth.php';
