@@ -84,6 +84,21 @@ class MainController extends Controller
             ])->first();
         }
 
+        if(isset($price)) {
+            $price = $price->price;
+            if ($weight >=32 && $weight < 40) {
+                $price = $price + 180;
+            }
+
+            elseif (($cur_length > 100 || $cur_width > 76 ) && $weight < 40) {
+                $price = $price + 180;
+            }
+
+            if ($weight >= 40 && $weight <= 70) {
+                $price = $price + 1560;
+            }
+        }
+
         return view('main', [
             'countries'        => $countries,
             'service_types'    => $service_types,

@@ -67,7 +67,7 @@
             <div class="m-4">
                 @if(isset($cur_country))
                     @if (isset($price))
-                        {{$price->price}} UAH
+                        {{$price}} UAH
                     @else
                         Price not found
                     @endif
